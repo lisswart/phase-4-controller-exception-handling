@@ -149,10 +149,11 @@ end
 ## Handling Exceptions
 
 We can also shorten up the code in each of our controller methods by using a
-different approach to finding a bird using the ID. Currently, we're using the
-[`find_by`][find_by] method to look up a bird. `find_by` returns `nil` if the
-record isn't found in the database, which makes it useful for `if/else` control
-flow, since `nil` is a false-y value in Ruby.
+different approach to finding a bird using the ID. This will also help us
+improve our error handling. Currently, we're using the [`find_by`][find_by]
+method to look up a bird. `find_by` returns `nil` if the record isn't found in
+the database, which makes it useful for `if/else` control flow, since `nil` is a
+false-y value in Ruby.
 
 If we use the [`find`][find] method instead, we'll get an
 `ActiveRecord::RecordNotFound` exception instead of `nil` when the record
@@ -293,6 +294,16 @@ actions in particular, it allows us to isolate the "happy path" of our code
 exception handling logic. It also lets us handle exceptions in a consistent way,
 so that users of our API get the same response for common errors, like not being
 able to find a particular resource.
+
+## Check For Understanding
+
+Before you move on, make sure you can answer the following questions:
+
+1. What is the difference in behavior between the `find` and `find_by` methods?
+   Why is that difference important for how we handle not-found errors?
+2. Looking at the final version of the controller code, what sequence of events
+   would happen if we tried to submit a `PATCH` request for a bird that doesn't
+   exist?
 
 ## Resources
 
